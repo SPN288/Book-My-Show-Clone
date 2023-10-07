@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import DefaultHOC from "./HOC/Default.HOC";
+import Home from "./pages/homepage";
+import MovieHOC from "./HOC/Movie.HOC";
+import movie from "./pages/moviepage";
+import plays from "./pages/plays.page";
+import axios from "axios";
+
+axios.defaults.baseURL = "https://api.themoviedb.org/3";
+axios.defaults.params={};
+axios.defaults.params["api_key"]=process.env.REACT_APP_API_KEY;
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+  <DefaultHOC path="/" exact component={Home} />
+  <MovieHOC path="/movie/:id" exact component={movie}/>
+  <DefaultHOC path="/plays" exact component={plays}/>
+  </>
   );
 }
 
